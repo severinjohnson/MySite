@@ -18,11 +18,17 @@
         }
 
         h1 {
-            font-size: 5rem;
+            font-size: 10vw; /* Responsive font size based on the viewport width */
             text-transform: uppercase;
             text-shadow: 0 0 15px #00ffff, 0 0 30px #00ffff;
             font-family: 'Orbitron', sans-serif;
             color: white;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 15vw; /* Slightly larger font for very small screens */
+            }
         }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
