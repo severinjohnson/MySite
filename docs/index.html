@@ -1,69 +1,4 @@
-/* Full-screen sections */
-    .section {
-      position: absolute;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 1;
-    }
-    
-    #home {
-      top: 0;
-      background-color: #fff;
-    }
-    
-    #operations {
-      top: 100vh;
-      background-color: #f9f9f7; /* Warm off-white */
-      position: relative;
-    }
-    
-    #contact {
-      top: 200vh;
-      background-color: #f8f8f6; /* Slightly darker warm off-white */
-      position: relative;
-    }
-    
-    #operations::before,
-    #contact::before {
-      content: none;
-    }
-    
-    .map-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.15; /* Increased opacity */
-      z-index: -1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    .map-background svg {
-      width: 90%; /* Larger size */
-      height: 90%;
-      fill: #d0d0d0; /* Much darker fill color */
-      stroke: #b0b0b0; /* Added stroke */
-      stroke-width: 1;
-    }UuNjIsMCwxMC44My00Ljc1LDE3Ljc1LTQuNzUsOCwwLDkuNjcsMy40MiwxMy4wOCw1LjE3czkuODQsMS44NCwxNS44NC0xLjA5IDExLjc1LTYuNjYsMTMuNDItOS4zMyA3LjI1LTcuNSw4LjI1LTEyLjc1YzcuMTksNS44MywxMS4wOCwxMC40MiwxNS4zMywyLjA4czEyLjE3LDQuNzUsMTIuMTcsNC43NSA0LjA4LDUuMDksNC45MiwwYy42Ny00LjA4LS44My00LjkyLjI1LTcuNjcsMy04LjQyLDMuNS05LjY2LDUuNjYtMTIuODMsMi4zNCwxLjI1LTIuOTEsOS42NiwyLjA5LDUuOTJzMjAuNjYtMjMuNzUsMjAuNTgtMjguNzUtMS41OC02LDAtMTIuNTggOC45Mi03LjkyLDEuMjUtMTIuNTktMjMtNS4wOC0yNC4zNC0yMC4xNy01LTEzLjA4LTUtMTllLS4wNi02LS4wNi03LjkyQzQwNS4zMSw0OTQsNDA0LDQ3OS43NSw0MDQsNDc2LjVjLS4wNy0zLjI1LjUtNi40MS4yNS0xMC4zMy0uMzYtNS42NC0xLjY3LTcuNDItMy4xNy0xNC4wOC0xLjMzLTUuODQsMy41LTkuOTIsMy41LTkuOTJzMS4yNS0xLjUtMi41LTEwLjQyYy0zLjE0LTcuNDUtMTAtMTMtMTMuNzUtMTUtMy4wOC0xLjY3LTIwLjQyLTcuNjYtMjQuOTItNi42Ni00LjQsMS02LjE2LDcuNjYtMTkuNjYsNi43NS0xMy41LTGZ0b3A6MzI1cHggKHJlcGVhdCBub25lKTsgd2lkdGg6IDVweDsgaGVpZ2h0OiA1cHg7Ij48L2Rpdj4=');
-      background-size: 600px;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-blend-mode: overlay;
-      background-opacity: 0.05;
-    }
-    
-    #contact {
-      top: 200vh; /* Position at 200% of viewport height */
-      background-color: #fff; /* Same white background */
-      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAwIDEwMDAiPjxwYXRoIGZpbGw9IiNmOGY4ZjgiIGQ9Ik0yNDguNzUsNzQwLjUyYy0xLjg1LDMuNjYtMTYuMzEsMTAuODQtMTguNTQsMTEuMzQtMi4yNC41LTEzLjMyLDQuNDYtMTYuMDYsNi44My0yLjczLDIuMzgtMS41OCw3Ljk2LS43Miw5LjgyLjg2LDEuODYsMS4zNSw2LjcyLDEuMzUsOC4zNHMtLjg2LDUuMzYtMi42LDYuNmMtMS43MywxLjI0LTMuNDYsNC42LTMuNDYsN3MxLjQ5LDQuNiwyLjYsNS44NGMxLjExLDEuMjMsMi40NywzLjQ3LDIuNDcsNS4yMSwwLDMuMzUtMTAuNjYsMTIuNDQtMTIuNjMsMTMuNTYtMS45OCwxLjEyLTUuMDgsNC4yMi01LjA4LDcuODIsMCwzLjYsMy4zNiw3LjE5LDQuODQsNy44MiwxLjQ5LjYyLDEuMjUsNi4zMywwLDcuOTQtMS4yNCwxLjYxLTMuMDksMy4zNC01LjA4LDQuODRzLTIuNjEsNC4yMi0uNSw3LjJjMi4xMSwyLjk3LDkuOTMsOC40MSwxMi40MywxMC45LDIuNSwyLjQ4LDcuNDQsNC4xLDkuN2MxMS4xMy00LjM4LDE3LjU0LDEyLjU3LDIxLjEzLDEyLjhzMTAuMiwxLjM2LDEyLjU2LS42MmMyLjM2LTEuOTgsOC4yLTguMDUsMTAuNTctOS42NiwyLjM2LTEuNiw3LjgyLS45OSw5LjkzLjM3czUuOTYsNC45Nyw3LjU3LDUuMmMxLjYuMjUsMTIuOC4yNSwxNS42NiwwLDIuODUtLjI0LDYuOTUtMi4zNSw4LjU2LTMuMzQsMS42LS45OSw3LjgxLTEuMzYsOS45Mi4xMiwyLjExLDEuNDksMS43Myw2Ljk1LDIuOTgsNy44MiwxLjI0Ljg2LDUuNTgsMS4xMSw3LjQzLjk5LDEuMzctMTcuNTEtNC44LTE1LjE4LDExLjY2LTE4Ljc5LDMuNzUtMi42MSw3LjQ0LTkuNDQsOC40Mi0xMi42NSw5LjMxLTEuNDksOC40NS03LjE5LDkuMTgtMTkuNjctMS4yNC02Ljg0LDQuMS0xNC4yOCw1LjctMTYuMywxLjYyLTIuMDEsNC41OS0xMi4yOS40OS0xNi4xOC00LjA5LTMuODktMTUuNDEtOS44MS0xNy42NC0xMC44LTIuMjQtLjk5LTEyLjY3LTQuODQtMTQuNzctNy40NC0yLjEtMi42LTYuNzEtMTMuNjctNy41Ny0xNS42NS0uODYtMS45OSwyLjQ3LTcuNTIsMS45OS05Ljc4LS40OS0yLjI1LTMtNi43MS00Ljc2LTcuODEtMS42NC0xLjEyLTExLjkzLTE0LjU0LTI0LjM1LTIxLjM3LTEyLjQzLTYuODMtMzYuOTgtMTMuOTItNDEuMTgtMTUuNTJzLTUuOTYtNi4xMy03Ljg2LTguMzZjLTEuOS0yLjI0LTUuMzMtMTYuNjQtNS45NS0xOS4xNS0uNjItMi40OSwyLjI0LTcuOTQsMy44NC05LjgxLDEuNi0xLjg2LDIuMS0xMi4wNSwxLjYtMTUuNS0uNS0zLjQ3LTYuMjEtMTQuMTYtNy4zMi0xNi4yOC0xLjExLTIuMTItMTAuMDUtMTAuMDUtMTIuOC0xMy4wNS0yLjczLTMuODQsNi44My0xMC4zLC44Ni0xNHMtMjguMzUtMTMuNzktMzAuOTctMTQuMzktOC4zMy0yLjk5LTkuOTMtNS40Ny0xMC41Ni0xMi42NS0xMy4wNS0xNi43NWMtMi40OC00LjA5LDMuODQtMjAuNS44Ni0yNC44NGMtMi45OC00LjM0LTkuOS0xNC4xNS0yOC4xOC0xNC42NS02LjgtLjIyLTkuMzYsMS4zMy0xMy42Niw1LjQyLTIuNDcsMS45OC02LjcuNjEtOS45Mi45OS0zLjIyLjM3LTEzLjMsMS4yMy0xOS42NCw4LjE5LTUuNyw2LjcyLTEwLjA1LDIyLjQ5LTEwLjA1LDI1LjU5LDAsMy4wOSwxMC40MywxNy43NiwxMy4xNywyMC45OSwyLjczLDMuMjIsMTEuMyw5Ljk0LDEzLjU0LDEyLjY3LDIuMjQsMi43NSw1LjA4LDcuNjksNy4zMiw5LjE4LDIuMjMsMS4zNyw0LjM0LDcuNyw2LjIxLDEwLjA1LDEuODYsMi4zNSw4LjY5LDcuMSwxMC42Nyw4LjMzLDEuOTksMS4yNSwxLjYzLDQuMiwxLjYzLDcuMThzMTUuMTUsMjEuMzgsMTcuNjMsMjMuNDljMS4wNywxLDQuMjgsMTIuNy0xLjIxLDE1LjA5eiIvPjxwYXRoIGZpbGw9IiNmOGY4ZjgiIGQ9Ik03MjYuODUsNzQxLjg5YzEsMS45OCwyLjIzLDQuMjEsMy4yMSw1LjgyLDEuNjEsMi41OSw2LjIxLDQuMzQsOC41Nyw0LjM0czEwLjQyLTYuMDgsMTIuOTEtNy4zMmMyLjQ5LTEuMjIsMTMuMTctMi40NywxNi4wNi0yLjQ3LDIuODgsMCwxNi42MiwzLjU4LDE4LjY3LDQuMjEsMi4wMS42MywzLjU3LDMuMDksMy40Niw2LjQ1LDAtMy40OCwyNi44OC0xLjk5LDMwLjcyLjE0LDMuODQsMi4xMyw5LjQzLDYuMDcsMTEuMTgsOC45MywxLjczLDIuODUsMy40NiwxMC4yOSwyLjExLDEyLjQxLTEuMzcsMi4xLTYuMzMsMy43Mi03LjQ0LDYuNDQtMS4xMiwyLjc0LDEuNDgsNS41NiwxLjk4LDcuNDUuNSwxLjg2LDEuMjMsOS4xNy42MSw5Ljkxcy01LjIyLDEuNjEtNS41OSwzLjYtLjEyLDYuNzEuNDksOC44MWMuNjIsMi4xMSwzLjM0LDcuNjgsNC4yMiw5LjU0LjksMi45OSw1LjU5LDQuODMsNy42OSw2LjIxLDIuMTEsMS4zNiw2LjMzLDMuMzMsOC4zMSw1LjE5LDEuOTksMS44Niw3LjMzLDUuMjEsOC45Myw3LjQ1LDEuNiwyLjIzLDMuODQsNi45NCwzLjg0LDguNDMsMCwxLjQ4LjUsNS4zMy40OSw3LjY5LDAsNC45Nyw0Ljk4LDYuNyw3LjQ1LDcuMiwyLjQ3LjQ5LDYuNy0xLjEyLDguNjgtMi4yNCwxLjk5LTEuMDksNS4yLjI2LDYuMDksMS44Nyw5LjMxLDUuOTcsMjIuNSw0LjYsMjUuMzMsNC44NiwxNS41NCwxLjQ2LDEwLjE3LTYuMzQsMTMuNjctMTAuNjYsMy40OS00LjM0LDkuMjksNi4zMiwxMS4xNCw3LjU3LDEuODcsMS4yMyw4LjA5LDIuOTgsMTEuOTIsMi43MnM4LjMyLS45OSw5LjA2LTMuNDZjLjc0LTIuNDYsLjYyLTguMTktMi43My0xMS4wNS0zLjM0LTIuODctNy4zMi02Ljct&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
-    12.QiIgZD0iTTMyMC44Myw1NjMuMDlsMTcuMzgtOS44MyIvPjxwYXRoIGZpbGw9IiNmOGY4ZjgiIGQ9Ik0zMzEuOCw1ODIuOGMuMTYsMS45Ni0uMSw1LjMtLjEsNi45MS4wNyw3LjMxLTkuMTYsMTIuNjItMTQuMjQsOS42Mi00LjQ1LTEuNzUtMTQuNjctNi40OS0xOS00LjgzLTMuNzMsMS42OC01LjQyLDEuOTQtMTAuNzUsMy4zM3MtNS4yNSwyLjA4LTExLjA4LDguMDhjLTUuNzUsNi03LjE3LDYuNzUtMTAsNi41OHMtMTguMDgtNCwxLjQyLDIuMDhjMTYuNDcsNi40NSwyMi41LDExLjE3LDI0Ljc1LDExLjE3LD<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -73,92 +8,48 @@
     href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
     rel="stylesheet"
   />
-
   <style>
-    /* Debug mode - adds borders to see section boundaries */
-    .debug-mode .section {
-      border: 2px solid red;
-    }
-    .debug-mode .section h2 {
-      border: 2px solid blue;
-    }
-    .debug-mode .section p {
-      border: 2px solid green;
-    }
-
     /* Reset and base styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
-      user-select: none; /* Prevent text selection */
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none; /* Firefox */
-      -ms-user-select: none; /* IE/Edge */
+      user-select: none;
     }
-
     @font-face {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 400;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    
-    @font-face {
-      font-family: 'Inter';
-      font-style: normal;
-      font-weight: 700;
-      font-display: swap;
-      src: url(https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2) format('woff2');
-      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-
+      font-family: 'Inter'; /* …same as before… */ }
     body {
       background-color: #fff;
       color: #333;
       overflow-x: hidden;
-    }
-
-    /* Custom scrollbar (hidden) */
-    html, body {
       height: 100%;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
-    body::-webkit-scrollbar {
-      display: none;
-    }
+    body::-webkit-scrollbar { display: none; }
 
-    /* Viewport and scroll container */
+    /* Viewport container */
     .main-container {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 300vh; /* three full-height sections */
+      top: 0; left: 0;
+      width: 100vw; height: 300vh;
       overflow: hidden;
     }
 
-    /* Logos */
-    .center-logo {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 100;
-      opacity: 1;
+    /* Logo styles */
+    .center-logo, .corner-logo {
+      position: fixed; z-index: 100;
       transition: opacity 0.5s ease;
     }
+    .center-logo {
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 1;
+    }
     .corner-logo {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 100;
+      top: 20px; left: 20px;
       opacity: 0;
-      transition: opacity 0.5s ease;
     }
     .logo {
       font-size: 2.5rem;
@@ -167,9 +58,7 @@
       text-shadow: 0 0 10px rgba(125,125,125,0.4);
       cursor: pointer;
     }
-    .corner-logo .logo {
-      font-size: 1.8rem;
-    }
+    .corner-logo .logo { font-size: 1.8rem; }
     .logo span {
       font-weight: 700;
       color: #1e90ff;
@@ -179,14 +68,12 @@
     /* Navigation dots */
     .nav-dots {
       position: fixed;
-      top: 50%;
-      right: 40px;
+      top: 50%; right: 40px;
       transform: translateY(-50%);
       z-index: 100;
     }
     .nav-dot {
-      width: 8px;
-      height: 8px;
+      width: 8px; height: 8px;
       border-radius: 50%;
       background-color: rgba(30,144,255,0.3);
       margin: 12px 0;
@@ -202,83 +89,49 @@
     /* Full-screen sections */
     .section {
       position: absolute;
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      width: 100%; height: 100vh;
+      display: flex; align-items: center;
+      justify-content: center; flex-direction: column;
       background-color: #fff;
     }
-    
-    #home {
-      top: 0;
-    }
-    
-    #operations {
-      top: 100vh; /* Position at 100% of viewport height */
-      background-color: #fff; /* Same white background */
-    }
-    
-    #contact {
-      top: 200vh; /* Position at 200% of viewport height */
-      background-color: #fff; /* Same white background */
-    }
+    #home    { top:   0;   }
+    #operations { top: 100vh; }
+    #contact { top: 200vh; }
 
-    /* Section content */
+    /* Section typography */
     .section h2 {
-      font-size: 2rem;
-      font-weight: 400;
-      color: #999; /* Light gray for text */
-      margin-bottom: 20px;
+      font-size: 2rem; font-weight: 400;
+      color: #999; margin-bottom: 20px;
       letter-spacing: 2px;
     }
-
-    /* Operations section */
-    .operations-content {
-      text-align: center;
-    }
-    
     .coming-soon {
-      color: #999;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      margin-top: 5px;
+      color: #999; font-size: 1rem; letter-spacing: 1px;
     }
-
-    /* Contact section */
-    .contact-content {
-      text-align: center;
+    .contact-content p {
+      font-size: 1.2rem; color: #999; margin-top: 15px;
     }
-    
-    #contact p {
-      font-size: 1.2rem;
-      color: #999; /* Same light gray color */
-      margin-top: 15px;
+    .contact-content a {
+      color: #999; text-decoration: none;
+      transition: all 0.3s ease; font-size: 1.3rem;
     }
-    
-    #contact a {
-      color: #999; /* Same light gray color */
-      text-decoration: none;
-      transition: all 0.3s ease;
-      font-weight: 400;
-      font-size: 1.3rem;
-    }
-    
-    #contact a:hover {
+    .contact-content a:hover {
       text-shadow: 0 0 10px rgba(30,144,255,0.6);
     }
 
-    /* Cursor trail effect */
+    /* Cursor trail */
     .cursor-trail {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: rgba(30,144,255,0.5);
-      pointer-events: none;
-      z-index: 9999;
+      position: absolute; width: 6px; height: 6px;
+      border-radius: 50%; background-color: rgba(30,144,255,0.5);
+      pointer-events: none; z-index: 9999;
       box-shadow: 0 0 8px rgba(30,144,255,0.5);
+    }
+
+    /* Mobile tweaks */
+    @media (max-width: 768px) {
+      .logo { font-size: 2rem; }
+      .corner-logo .logo { font-size: 1.5rem; }
+      .nav-dots { right: 20px; }
+      .nav-dot { width: 6px; height: 6px; margin: 8px 0; }
     }
   </style>
 </head>
@@ -295,176 +148,118 @@
   <!-- Nav dots -->
   <div class="nav-dots">
     <div class="nav-dot active" data-index="0"></div>
-    <div class="nav-dot" data-index="1"></div>
-    <div class="nav-dot" data-index="2"></div>
+    <div class="nav-dot"       data-index="1"></div>
+    <div class="nav-dot"       data-index="2"></div>
   </div>
 
   <!-- Sections -->
   <div class="main-container">
     <div class="section" id="home">
-      <!-- Empty home section -->
+      <!-- Home empty -->
     </div>
-    
+
     <div class="section" id="operations">
-      <div class="map-background">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700">
-          <path d="M231.94 257.56l-3.9-3.9.97-1.95 2.93 2.93v2.92zm-7.8-21.45l-23.4-23.4-9.74-15.6-9.75-9.75-3.9-13.65 21.45-13.66 13.65-23.4 11.7-11.7 11.7-1.96 15.6-9.75 23.4-5.85 5.85-3.9h11.7l3.9-1.95 17.55 5.86 15.6 9.75 5.85 11.7 1.95 15.6 3.9 7.82 5.85 3.9 3.9 5.85v9.75l-5.85 9.75-3.9 19.5-3.9 9.76-11.7 7.8-7.8 1.96-3.9 5.85-9.76 3.9-5.85 5.85-9.75 3.9h-21.46l-3.9 3.9h-15.6l-9.75-5.85zm-5.85 60l-11.7 3.9-11.7 5.86-15.6 3.9h-15.6l-7.8-3.9-11.7-1.95v-7.8l3.9-7.8 3.9-3.9 5.85-1.96h9.74l9.75 1.95 7.8-5.85h15.6l9.76-3.9 5.85 3.9-3.9 11.7v11.7zm5.85 3.9l7.8 9.75 15.6 15.6 3.9 13.65v9.75l-3.9 9.75-3.9 5.85-31.2 17.55-11.7 15.6-11.7 5.85-15.6 9.76-9.75 1.95-11.7-3.9-11.7-1.95-9.75-5.85-7.8-11.7-5.85-11.7v-7.8l3.9-7.8 11.7-9.76 13.65-11.7 9.76-3.9 23.4-9.75 23.39-15.6h9.75l11.7-3.9zm-33.15 121.94l1.95 5.85 7.8 5.85 9.75 1.95 11.7-3.9-1.95-7.8-3.9-5.85-7.8-1.95-11.7-1.96-5.85 7.8zm17.55 33.15l19.5 13.65 9.75 19.5 7.8 15.6 5.85 11.7-1.95 7.8-9.75 7.8-9.75 5.86-11.7 3.9-11.7-1.96-7.8-5.85-5.85-9.75-3.9-11.7v-13.65l1.95-11.7 3.9-13.65 9.75-9.75 3.9-7.8zm37.05 88.94l-5.85 19.5-1.95 9.76 1.95 7.8 3.9 5.85 3.9 5.85 5.85 5.85 5.85 5.85h9.75l5.85-3.9v-5.85l-1.95-7.8-5.85-9.75v-9.75l-1.95-5.85-7.8-9.76-5.85-5.85-5.85-1.95zm-21.45 84.54l9.75 13.66 11.7 11.7 13.65 11.7 15.6 13.65 15.6 3.9 17.55-1.95 9.76-5.85 1.95-17.56-7.8-17.55-7.8-13.65-9.75-9.75-19.5-15.6-11.7-5.85h-15.6l-9.76-3.9H218.3l-5.85 7.8-5.86 15.6 1.95 15.6 5.85 3.95zm251.54-214.48l-1.95-15.6-15.6-25.35-5.85-13.65-3.9-5.85 5.85-1.95 19.5 25.35 5.85 15.6 1.95 15.6-5.85 5.85zm-31.2-86.6l5.85 7.8 5.85 11.7 13.65 13.66 9.75 11.7 7.8 5.85 13.65 5.85 11.7 9.76 15.6 11.7 5.85 1.95 5.85-1.95 3.9-5.85v-11.7l-21.45-27.3-9.75-11.7-7.8-9.76-19.5-15.6-13.65-5.85-7.8-1.95-11.7 3.9-7.8 7.8zm90.9 88.94l5.85 11.7v7.8l-3.9 5.86-15.6 3.9-15.6-3.9-15.6-11.7-11.7-15.6-7.8-7.8-9.76-17.55-11.7-15.6-5.85-13.65-3.9-13.65V346l1.95-15.6-11.7-11.7-11.7-7.8-1.95-7.8v-7.8l7.8-3.9 11.7 3.9 11.7 11.7 3.9 11.7v11.7l-5.85 7.8 3.9 11.7 5.86 9.75 9.75 15.6 13.65 17.56 17.55 17.55 15.6 11.7 17.55 9.75 19.5 3.9z"/>
-          
-          <!-- Add some key landmarks and features for recognizability -->
-          <path d="M270 340 L310 340 L310 390 L270 390 Z" fill="#c0c0c0" stroke="#a0a0a0" stroke-width="1"/>
-          <path d="M400 200 L450 200 L450 230 L400 230 Z" fill="#c0c0c0" stroke="#a0a0a0" stroke-width="1"/>
-          <path d="M350 280 L380 280 L380 320 L350 320 Z" fill="#c0c0c0" stroke="#a0a0a0" stroke-width="1"/>
-          
-          <!-- Add some roads/streets -->
-          <line x1="200" y1="250" x2="500" y2="250" stroke="#b0b0b0" stroke-width="2"/>
-          <line x1="200" y1="300" x2="500" y2="300" stroke="#b0b0b0" stroke-width="2"/>
-          <line x1="200" y1="350" x2="500" y2="350" stroke="#b0b0b0" stroke-width="2"/>
-          <line x1="250" y1="200" x2="250" y2="500" stroke="#b0b0b0" stroke-width="2"/>
-          <line x1="350" y1="200" x2="350" y2="500" stroke="#b0b0b0" stroke-width="2"/>
-          <line x1="450" y1="200" x2="450" y2="500" stroke="#b0b0b0" stroke-width="2"/>
-        </svg>
-      </div>
       <div class="operations-content">
         <h2>Operations</h2>
         <p class="coming-soon">Coming Soon</p>
       </div>
     </div>
-    
+
     <div class="section" id="contact">
-      <div class="map-background">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700">
-          <path d="M231.94 257.56l-3.9-3.9.97-1.95 2.93 2.93v2.92zm-7.8-21.45l-23.4-23.4-9.74-15.6-9.75-9.75-3.9-13.65 21.45-13.66 13.65-23.4 11.7-11.7 11.7-1.96 15.6-9.75 23.4-5.85 5.85-3.9h11.7l3.9-1.95 17.55 5.86 15.6 9.75 5.85 11.7 1.95 15.6 3.9 7.82 5.85 3.9 3.9 5.85v9.75l-5.85 9.75-3.9 19.5-3.9 9.76-11.7 7.8-7.8 1.96-3.9 5.85-9.76 3.9-5.85 5.85-9.75 3.9h-21.46l-3.9 3.9h-15.6l-9.75-5.85zm-5.85 60l-11.7 3.9-11.7 5.86-15.6 3.9h-15.6l-7.8-3.9-11.7-1.95v-7.8l3.9-7.8 3.9-3.9 5.85-1.96h9.74l9.75 1.95 7.8-5.85h15.6l9.76-3.9 5.85 3.9-3.9 11.7v11.7zm5.85 3.9l7.8 9.75 15.6 15.6 3.9 13.65v9.75l-3.9 9.75-3.9 5.85-31.2 17.55-11.7 15.6-11.7 5.85-15.6 9.76-9.75 1.95-11.7-3.9-11.7-1.95-9.75-5.85-7.8-11.7-5.85-11.7v-7.8l3.9-7.8 11.7-9.76 13.65-11.7 9.76-3.9 23.4-9.75 23.39-15.6h9.75l11.7-3.9zm-33.15 121.94l1.95 5.85 7.8 5.85 9.75 1.95 11.7-3.9-1.95-7.8-3.9-5.85-7.8-1.95-11.7-1.96-5.85 7.8zm17.55 33.15l19.5 13.65 9.75 19.5 7.8 15.6 5.85 11.7-1.95 7.8-9.75 7.8-9.75 5.86-11.7 3.9-11.7-1.96-7.8-5.85-5.85-9.75-3.9-11.7v-13.65l1.95-11.7 3.9-13.65 9.75-9.75 3.9-7.8zm37.05 88.94l-5.85 19.5-1.95 9.76 1.95 7.8 3.9 5.85 3.9 5.85 5.85 5.85 5.85 5.85h9.75l5.85-3.9v-5.85l-1.95-7.8-5.85-9.75v-9.75l-1.95-5.85-7.8-9.76-5.85-5.85-5.85-1.95zm-21.45 84.54l9.75 13.66 11.7 11.7 13.65 11.7 15.6 13.65 15.6 3.9 17.55-1.95 9.76-5.85 1.95-17.56-7.8-17.55-7.8-13.65-9.75-9.75-19.5-15.6-11.7-5.85h-15.6l-9.76-3.9H218.3l-5.85 7.8-5.86 15.6 1.95 15.6 5.85 3.95zm251.54-214.48l-1.95-15.6-15.6-25.35-5.85-13.65-3.9-5.85 5.85-1.95 19.5 25.35 5.85 15.6 1.95 15.6-5.85 5.85zm-31.2-86.6l5.85 7.8 5.85 11.7 13.65 13.66 9.75 11.7 7.8 5.85 13.65 5.85 11.7 9.76 15.6 11.7 5.85 1.95 5.85-1.95 3.9-5.85v-11.7l-21.45-27.3-9.75-11.7-7.8-9.76-19.5-15.6-13.65-5.85-7.8-1.95-11.7 3.9-7.8 7.8zm90.9 88.94l5.85 11.7v7.8l-3.9 5.86-15.6 3.9-15.6-3.9-15.6-11.7-11.7-15.6-7.8-7.8-9.76-17.55-11.7-15.6-5.85-13.65-3.9-13.65V346l1.95-15.6-11.7-11.7-11.7-7.8-1.95-7.8v-7.8l7.8-3.9 11.7 3.9 11.7 11.7 3.9 11.7v11.7l-5.85 7.8 3.9 11.7 5.86 9.75 9.75 15.6 13.65 17.56 17.55 17.55 15.6 11.7 17.55 9.75 19.5 3.9z" fill="#f2f2f2"/>
-        </svg>
-      </div>
       <div class="contact-content">
         <h2>Contact</h2>
-        <p>
-          <a href="mailto:sev@aquagvt.com">sev@aquagvt.com</a>
-        </p>
+        <p><a href="mailto:sev@aquagvt.com">sev@aquagvt.com</a></p>
       </div>
     </div>
   </div>
 
   <script>
-    const centerLogo = document.getElementById('centerLogo');
-    const cornerLogo = document.getElementById('cornerLogo');
-    const sections = document.querySelectorAll('.section');
-    const navDots = document.querySelectorAll('.nav-dot');
+    const centerLogo  = document.getElementById('centerLogo');
+    const cornerLogo  = document.getElementById('cornerLogo');
+    const sections    = document.querySelectorAll('.section');
+    const navDots     = document.querySelectorAll('.nav-dot');
     let currentSection = 0;
-    let isScrolling = false;
-    let scrollAmount = 0;
-    const scrollThreshold = 150; // Higher threshold means more scrolling needed to change sections
-
-    // Debug mode toggle (enable by adding class to body)
-    // Uncomment the line below to enable debug borders
-    // document.body.classList.add('debug-mode');
+    let isScrolling   = false;
+    let scrollAccum   = 0;
+    const scrollThreshold = 150;
 
     function goToSection(idx) {
       if (isScrolling || idx < 0 || idx >= sections.length) return;
       isScrolling = true;
       currentSection = idx;
-      scrollAmount = 0; // Reset scroll counter
-
-      // Scroll to section
-      window.scrollTo({
-        top: idx * window.innerHeight,
-        behavior: 'smooth'
-      });
-
-      // Update nav dots
-      navDots.forEach((d, i) =>
-        d.classList.toggle('active', i === idx)
-      );
-
-      // Toggle logos
-      if (idx === 0) {
+      scrollAccum = 0;
+      window.scrollTo({ top: idx * window.innerHeight, behavior: 'smooth' });
+      navDots.forEach((d,i)=> d.classList.toggle('active', i===idx));
+      if (idx===0) {
         centerLogo.style.opacity = '1';
         cornerLogo.style.opacity = '0';
       } else {
         centerLogo.style.opacity = '0';
         cornerLogo.style.opacity = '1';
       }
-
-      setTimeout(() => isScrolling = false, 800);
+      setTimeout(()=> isScrolling = false, 800);
     }
 
-    // Initial section setup
+    // initial
     window.addEventListener('DOMContentLoaded', () => {
-      // Force scroll to top on load
-      window.scrollTo(0, 0);
-      
-      // Set active section
+      window.scrollTo(0,0);
       goToSection(0);
     });
 
-    // Wheel navigation with accumulated scroll
+    // wheel
     window.addEventListener('wheel', e => {
       e.preventDefault();
-      
       if (isScrolling) return;
-      
-      // Accumulate scroll amount
-      scrollAmount += Math.abs(e.deltaY);
-      
-      // If accumulated scroll exceeds threshold, change section
-      if (scrollAmount >= scrollThreshold) {
-        scrollAmount = 0;
-        
-        if (e.deltaY > 0) {
-          goToSection(currentSection + 1);
-        } else if (e.deltaY < 0) {
-          goToSection(currentSection - 1);
-        }
+      scrollAccum += Math.abs(e.deltaY);
+      if (scrollAccum >= scrollThreshold) {
+        scrollAccum = 0;
+        goToSection(e.deltaY>0 ? currentSection+1 : currentSection-1);
       }
-    }, { passive: false });
+    }, { passive:false });
 
-    // Arrow key navigation (also requires multiple presses)
-    let keyPressCount = 0;
-    const keyPressThreshold = 3; // Number of key presses needed to change section
-    
+    // arrow keys
+    let keyCount=0, keyThresh=3;
     window.addEventListener('keydown', e => {
       if (isScrolling) return;
-      
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        keyPressCount++;
-        
-        if (keyPressCount >= keyPressThreshold) {
-          keyPressCount = 0;
-          
-          if (e.key === 'ArrowDown') {
-            goToSection(currentSection + 1);
-          } else {
-            goToSection(currentSection - 1);
-          }
+      if (e.key==='ArrowDown'||e.key==='ArrowUp') {
+        keyCount++;
+        if (keyCount>=keyThresh) {
+          keyCount=0;
+          goToSection(e.key==='ArrowDown'?currentSection+1:currentSection-1);
         }
       }
     });
+    window.addEventListener('keyup', ()=> setTimeout(()=> keyCount=0,500));
 
-    // Reset key press count when key is released
-    window.addEventListener('keyup', () => {
-      setTimeout(() => {
-        keyPressCount = 0;
-      }, 500);
-    });
+    // nav-dot clicks
+    navDots.forEach(dot => dot.addEventListener('click', _=> {
+      goToSection(parseInt(dot.dataset.index,10));
+    }));
 
-    // Nav dot clicks
-    navDots.forEach(dot =>
-      dot.addEventListener('click', () => {
-        const idx = parseInt(dot.dataset.index, 10);
-        goToSection(idx);
-      })
-    );
-
-    // Cursor trail
+    // cursor trail
     document.addEventListener('mousemove', e => {
       const t = document.createElement('div');
       t.className = 'cursor-trail';
-      t.style.left = e.pageX + 'px';
-      t.style.top = e.pageY + 'px';
+      t.style.left = e.pageX+'px';
+      t.style.top  = e.pageY+'px';
       document.body.appendChild(t);
-      setTimeout(() => t.style.opacity = '0', 400);
-      setTimeout(() => document.body.removeChild(t), 800);
+      setTimeout(()=> t.style.opacity = '0', 400);
+      setTimeout(()=> document.body.removeChild(t), 800);
     });
+
+    // touch/swipe support
+    let touchStartY = 0;
+    window.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    window.addEventListener('touchend', e => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const delta = touchStartY - touchEndY;
+      if (Math.abs(delta) > 50) {
+        goToSection(delta > 0 ? currentSection+1 : currentSection-1);
+      }
+    }, { passive: true });
+
   </script>
 </body>
 </html>
