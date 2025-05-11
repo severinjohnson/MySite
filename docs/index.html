@@ -4,8 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AquaGVT</title>
+  <!-- Modern font: Poppins -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet"
   />
   <style>
@@ -13,39 +14,32 @@
     * {
       margin: 0; padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Poppins', sans-serif;
       user-select: none;
-    }
-    @font-face {
-      font-family: 'Inter';
-      /* …same src as before… */
     }
     body {
       background: #fff;
       color: #333;
-      overflow: hidden; /* hide page scrollbar */
+      overflow: hidden;
       height: 100%;
     }
 
     /* SCROLL-SNAP CONTAINER */
     .main-container {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw;  height: 100vh;
+      position: fixed; top: 0; left: 0;
+      width: 100vw; height: 100vh;
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch; /* iOS momentum */
-      
-      /* hide scrollbar */
-      scrollbar-width: none; 
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
     }
     .main-container::-webkit-scrollbar { display: none; }
 
     /* SNAP-ALIGNED SECTIONS */
     .section {
       scroll-snap-align: start;
-      width: 100%;  height: 100vh;
+      width: 100%; height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -76,7 +70,7 @@
     }
     .corner-logo .logo { font-size: 1.8rem; }
     .logo span {
-      font-weight: 700;
+      font-weight: 600;
       color: #1e90ff;
       text-shadow: 0 0 10px rgba(30,144,255,0.4);
     }
@@ -105,29 +99,39 @@
     /* SECTION TEXT */
     .section h2 {
       font-size: 2rem;
-      font-weight: 400;
-      color: #999;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-    }
-    .coming-soon {
-      color: #999;
-      font-size: 1rem;
+      font-weight: 600;
+      color: #444;
+      margin-bottom: 12px;
       letter-spacing: 1px;
     }
+
+    /* Operations */
+    .operations-content {
+      text-align: center;
+    }
+    .coming-soon {
+      color: #666;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* Contact */
+    .contact-content {
+      text-align: center;
+    }
     .contact-content p {
-      font-size: 1.2rem;
-      color: #999;
-      margin-top: 15px;
+      margin-top: 8px;
     }
     .contact-content a {
-      color: #999;
+      color: #666;
       text-decoration: none;
-      font-size: 1.3rem;
-      transition: text-shadow 0.3s;
+      font-size: 1.2rem;
+      font-weight: 400; /* normal weight */
+      transition: color 0.3s;
     }
     .contact-content a:hover {
-      text-shadow: 0 0 10px rgba(30,144,255,0.6);
+      color: #1e90ff;
     }
 
     /* CURSOR TRAIL */
@@ -141,7 +145,7 @@
       box-shadow: 0 0 8px rgba(30,144,255,0.5);
     }
 
-    /* MOBILE ADJUSTMENTS */
+    /* MOBILE */
     @media (max-width: 768px) {
       .logo { font-size: 2rem; }
       .corner-logo .logo { font-size: 1.5rem; }
@@ -168,9 +172,7 @@
 
   <!-- Scroll-snap container -->
   <div class="main-container">
-    <div class="section" id="home">
-      <!-- home is empty -->
-    </div>
+    <div class="section" id="home"></div>
 
     <div class="section" id="operations">
       <div class="operations-content">
@@ -195,7 +197,7 @@
     const vh          = window.innerHeight;
 
     function updateUI(idx) {
-      navDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+      navDots.forEach((d,i)=> d.classList.toggle('active', i===idx));
       if (idx === 0) {
         centerLogo.style.opacity = '1';
         cornerLogo.style.opacity = '0';
@@ -205,21 +207,18 @@
       }
     }
 
-    // on scroll: snap will handle movement, we just update nav/Logo
     container.addEventListener('scroll', () => {
       const idx = Math.round(container.scrollTop / vh);
       updateUI(idx);
     });
 
-    // nav-dot clicks
-    navDots.forEach(dot => {
+    navDots.forEach(dot =>
       dot.addEventListener('click', () => {
         const idx = parseInt(dot.dataset.index, 10);
         container.scrollTo({ top: idx * vh, behavior: 'smooth' });
-      });
-    });
+      })
+    );
 
-    // cursor trail
     document.addEventListener('mousemove', e => {
       const t = document.createElement('div');
       t.className = 'cursor-trail';
