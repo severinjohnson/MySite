@@ -9,35 +9,51 @@
     rel="stylesheet"
   />
   <style>
-    /* Reset and base styles */
+    /* RESET & BASE */
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       box-sizing: border-box;
       font-family: 'Inter', sans-serif;
       user-select: none;
     }
     @font-face {
-      font-family: 'Inter'; /* …same as before… */ }
+      font-family: 'Inter';
+      /* …same src as before… */
+    }
     body {
-      background-color: #fff;
+      background: #fff;
       color: #333;
-      overflow-x: hidden;
+      overflow: hidden; /* hide page scrollbar */
       height: 100%;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
     }
-    body::-webkit-scrollbar { display: none; }
 
-    /* Viewport container */
+    /* SCROLL-SNAP CONTAINER */
     .main-container {
-      position: absolute;
+      position: fixed;
       top: 0; left: 0;
-      width: 100vw; height: 300vh;
-      overflow: hidden;
+      width: 100vw;  height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch; /* iOS momentum */
+      
+      /* hide scrollbar */
+      scrollbar-width: none; 
+    }
+    .main-container::-webkit-scrollbar { display: none; }
+
+    /* SNAP-ALIGNED SECTIONS */
+    .section {
+      scroll-snap-align: start;
+      width: 100%;  height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: #fff;
     }
 
-    /* Logo styles */
+    /* LOGOS */
     .center-logo, .corner-logo {
       position: fixed; z-index: 100;
       transition: opacity 0.5s ease;
@@ -65,7 +81,7 @@
       text-shadow: 0 0 10px rgba(30,144,255,0.4);
     }
 
-    /* Navigation dots */
+    /* NAV DOTS */
     .nav-dots {
       position: fixed;
       top: 50%; right: 40px;
@@ -75,58 +91,57 @@
     .nav-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
-      background-color: rgba(30,144,255,0.3);
+      background: rgba(30,144,255,0.3);
       margin: 12px 0;
       cursor: pointer;
       transition: all 0.3s ease;
     }
     .nav-dot.active {
-      background-color: #1e90ff;
+      background: #1e90ff;
       box-shadow: 0 0 8px rgba(30,144,255,0.6);
       transform: scale(1.5);
     }
 
-    /* Full-screen sections */
-    .section {
-      position: absolute;
-      width: 100%; height: 100vh;
-      display: flex; align-items: center;
-      justify-content: center; flex-direction: column;
-      background-color: #fff;
-    }
-    #home    { top:   0;   }
-    #operations { top: 100vh; }
-    #contact { top: 200vh; }
-
-    /* Section typography */
+    /* SECTION TEXT */
     .section h2 {
-      font-size: 2rem; font-weight: 400;
-      color: #999; margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 400;
+      color: #999;
+      margin-bottom: 20px;
       letter-spacing: 2px;
     }
     .coming-soon {
-      color: #999; font-size: 1rem; letter-spacing: 1px;
+      color: #999;
+      font-size: 1rem;
+      letter-spacing: 1px;
     }
     .contact-content p {
-      font-size: 1.2rem; color: #999; margin-top: 15px;
+      font-size: 1.2rem;
+      color: #999;
+      margin-top: 15px;
     }
     .contact-content a {
-      color: #999; text-decoration: none;
-      transition: all 0.3s ease; font-size: 1.3rem;
+      color: #999;
+      text-decoration: none;
+      font-size: 1.3rem;
+      transition: text-shadow 0.3s;
     }
     .contact-content a:hover {
       text-shadow: 0 0 10px rgba(30,144,255,0.6);
     }
 
-    /* Cursor trail */
+    /* CURSOR TRAIL */
     .cursor-trail {
-      position: absolute; width: 6px; height: 6px;
-      border-radius: 50%; background-color: rgba(30,144,255,0.5);
-      pointer-events: none; z-index: 9999;
+      position: absolute;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(30,144,255,0.5);
+      pointer-events: none;
+      z-index: 9999;
       box-shadow: 0 0 8px rgba(30,144,255,0.5);
     }
 
-    /* Mobile tweaks */
+    /* MOBILE ADJUSTMENTS */
     @media (max-width: 768px) {
       .logo { font-size: 2rem; }
       .corner-logo .logo { font-size: 1.5rem; }
@@ -135,7 +150,6 @@
     }
   </style>
 </head>
-
 <body>
   <!-- Logos -->
   <div class="center-logo" id="centerLogo">
@@ -152,10 +166,10 @@
     <div class="nav-dot"       data-index="2"></div>
   </div>
 
-  <!-- Sections -->
+  <!-- Scroll-snap container -->
   <div class="main-container">
     <div class="section" id="home">
-      <!-- Home empty -->
+      <!-- home is empty -->
     </div>
 
     <div class="section" id="operations">
@@ -174,92 +188,47 @@
   </div>
 
   <script>
+    const container   = document.querySelector('.main-container');
     const centerLogo  = document.getElementById('centerLogo');
     const cornerLogo  = document.getElementById('cornerLogo');
-    const sections    = document.querySelectorAll('.section');
     const navDots     = document.querySelectorAll('.nav-dot');
-    let currentSection = 0;
-    let isScrolling   = false;
-    let scrollAccum   = 0;
-    const scrollThreshold = 150;
+    const vh          = window.innerHeight;
 
-    function goToSection(idx) {
-      if (isScrolling || idx < 0 || idx >= sections.length) return;
-      isScrolling = true;
-      currentSection = idx;
-      scrollAccum = 0;
-      window.scrollTo({ top: idx * window.innerHeight, behavior: 'smooth' });
-      navDots.forEach((d,i)=> d.classList.toggle('active', i===idx));
-      if (idx===0) {
+    function updateUI(idx) {
+      navDots.forEach((d,i) => d.classList.toggle('active', i === idx));
+      if (idx === 0) {
         centerLogo.style.opacity = '1';
         cornerLogo.style.opacity = '0';
       } else {
         centerLogo.style.opacity = '0';
         cornerLogo.style.opacity = '1';
       }
-      setTimeout(()=> isScrolling = false, 800);
     }
 
-    // initial
-    window.addEventListener('DOMContentLoaded', () => {
-      window.scrollTo(0,0);
-      goToSection(0);
+    // on scroll: snap will handle movement, we just update nav/Logo
+    container.addEventListener('scroll', () => {
+      const idx = Math.round(container.scrollTop / vh);
+      updateUI(idx);
     });
-
-    // wheel
-    window.addEventListener('wheel', e => {
-      e.preventDefault();
-      if (isScrolling) return;
-      scrollAccum += Math.abs(e.deltaY);
-      if (scrollAccum >= scrollThreshold) {
-        scrollAccum = 0;
-        goToSection(e.deltaY>0 ? currentSection+1 : currentSection-1);
-      }
-    }, { passive:false });
-
-    // arrow keys
-    let keyCount=0, keyThresh=3;
-    window.addEventListener('keydown', e => {
-      if (isScrolling) return;
-      if (e.key==='ArrowDown'||e.key==='ArrowUp') {
-        keyCount++;
-        if (keyCount>=keyThresh) {
-          keyCount=0;
-          goToSection(e.key==='ArrowDown'?currentSection+1:currentSection-1);
-        }
-      }
-    });
-    window.addEventListener('keyup', ()=> setTimeout(()=> keyCount=0,500));
 
     // nav-dot clicks
-    navDots.forEach(dot => dot.addEventListener('click', _=> {
-      goToSection(parseInt(dot.dataset.index,10));
-    }));
+    navDots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const idx = parseInt(dot.dataset.index, 10);
+        container.scrollTo({ top: idx * vh, behavior: 'smooth' });
+      });
+    });
 
     // cursor trail
     document.addEventListener('mousemove', e => {
       const t = document.createElement('div');
       t.className = 'cursor-trail';
-      t.style.left = e.pageX+'px';
-      t.style.top  = e.pageY+'px';
+      t.style.left = e.pageX + 'px';
+      t.style.top  = e.pageY + 'px';
       document.body.appendChild(t);
-      setTimeout(()=> t.style.opacity = '0', 400);
-      setTimeout(()=> document.body.removeChild(t), 800);
+      setTimeout(() => t.style.opacity = '0', 400);
+      setTimeout(() => document.body.removeChild(t), 800);
     });
-
-    // touch/swipe support
-    let touchStartY = 0;
-    window.addEventListener('touchstart', e => {
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    window.addEventListener('touchend', e => {
-      const touchEndY = e.changedTouches[0].clientY;
-      const delta = touchStartY - touchEndY;
-      if (Math.abs(delta) > 50) {
-        goToSection(delta > 0 ? currentSection+1 : currentSection-1);
-      }
-    }, { passive: true });
-
   </script>
 </body>
 </html>
