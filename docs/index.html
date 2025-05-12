@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AquaGVT</title>
-  <!-- Modern font: Poppins -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
     rel="stylesheet"
@@ -36,20 +35,18 @@
     }
     .main-container::-webkit-scrollbar { display: none; }
 
-    /* SNAP-ALIGNED SECTIONS */
+    /* SECTIONS */
     .section {
       scroll-snap-align: start;
       width: 100%; height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
+      display: flex; align-items: center;
+      justify-content: center; flex-direction: column;
       background: #fff;
     }
 
     /* LOGOS */
     .center-logo, .corner-logo {
-      position: fixed; z-index: 100;
+      position: fixed; z-index: 200;
       transition: opacity 0.5s ease;
     }
     .center-logo {
@@ -77,17 +74,14 @@
 
     /* NAV DOTS */
     .nav-dots {
-      position: fixed;
-      top: 50%; right: 40px;
-      transform: translateY(-50%);
-      z-index: 100;
+      position: fixed; top: 50%; right: 40px;
+      transform: translateY(-50%); z-index: 200;
     }
     .nav-dot {
       width: 8px; height: 8px;
       border-radius: 50%;
       background: rgba(30,144,255,0.3);
-      margin: 12px 0;
-      cursor: pointer;
+      margin: 12px 0; cursor: pointer;
       transition: all 0.3s ease;
     }
     .nav-dot.active {
@@ -96,56 +90,60 @@
       transform: scale(1.5);
     }
 
-    /* SECTION TEXT */
+    /* TEXT */
     .section h2 {
-      font-size: 2rem;
-      font-weight: 600;
-      color: #444;
-      margin-bottom: 12px;
+      font-size: 2rem; font-weight: 600;
+      color: #444; margin-bottom: 12px;
       letter-spacing: 1px;
     }
-
-    /* Operations */
-    .operations-content {
-      display: flex;
-      flex-direction: column;
+    .operations-content,
+    .contact-content {
+      display: flex; flex-direction: column;
       align-items: center;
     }
     .coming-soon {
-      color: #666;
-      font-size: 1rem;
-      letter-spacing: 0.5px;
-      margin-top: 4px;
+      color: #666; font-size: 1rem;
+      letter-spacing: 0.5px; margin-top: 4px;
     }
-
-    /* Contact */
-    .contact-content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .contact-content p {
-      margin-top: 8px;
-    }
+    .contact-content p { margin-top: 8px; }
     .contact-content a {
-      color: #666;
-      text-decoration: none;
-      font-size: 1.2rem;
-      font-weight: 400;
+      color: #666; text-decoration: none;
+      font-size: 1.2rem; font-weight: 400;
       transition: color 0.3s;
     }
-    .contact-content a:hover {
-      color: #1e90ff;
+    .contact-content a:hover { color: #1e90ff; }
+
+    /* MOTHERBOARD CIRCUIT OVERLAY */
+    #overlay-lines {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none; z-index: 100;
+      opacity: 0.8;
+    }
+    .circuit-bg {
+      stroke: #f0f0f0; stroke-width: 0.5; fill: none;
+    }
+    .circuit-fg {
+      stroke: #1e90ff; stroke-width: 0.5; fill: none;
+      stroke-dasharray: 0; stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 2px rgba(30,144,255,0.7));
+    }
+    .circuit-node {
+      fill: #f0f0f0;
+      r: 2.5;
+    }
+    .circuit-node-active {
+      fill: #1e90ff;
+      filter: drop-shadow(0 0 3px rgba(30,144,255,0.8));
+      r: 2.5;
     }
 
     /* CURSOR TRAIL */
     .cursor-trail {
-      position: absolute;
-      width: 6px; height: 6px;
+      position: absolute; width: 6px; height: 6px;
       border-radius: 50%;
       background: rgba(30,144,255,0.5);
-      pointer-events: none;
-      z-index: 9999;
+      pointer-events: none; z-index: 300;
       box-shadow: 0 0 8px rgba(30,144,255,0.5);
     }
 
@@ -159,6 +157,76 @@
   </style>
 </head>
 <body>
+  <!-- SVG overlay: motherboard-inspired circuit from top-left to bottom-right -->
+  <svg id="overlay-lines" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <!-- Main diagonal path (background) -->
+    <path
+      class="circuit-bg"
+      d="M0,0 L150,150 L300,150 L450,300 L600,300 L750,450 L900,450 L1000,550 L1000,700 L850,850 L700,850 L550,1000"
+    />
+    
+    <!-- Secondary paths (background) -->
+    <path class="circuit-bg" d="M150,150 L150,250 L250,350" />
+    <path class="circuit-bg" d="M450,300 L550,200 L650,200" />
+    <path class="circuit-bg" d="M750,450 L750,550 L650,650" />
+    <path class="circuit-bg" d="M850,850 L750,750 L750,650" />
+    
+    <!-- Main diagonal path (foreground/animated) -->
+    <path
+      id="main-circuit"
+      class="circuit-fg"
+      d="M0,0 L150,150 L300,150 L450,300 L600,300 L750,450 L900,450 L1000,550 L1000,700 L850,850 L700,850 L550,1000"
+    />
+    
+    <!-- Secondary paths (foreground/animated) -->
+    <path id="branch1" class="circuit-fg" d="M150,150 L150,250 L250,350" />
+    <path id="branch2" class="circuit-fg" d="M450,300 L550,200 L650,200" />
+    <path id="branch3" class="circuit-fg" d="M750,450 L750,550 L650,650" />
+    <path id="branch4" class="circuit-fg" d="M850,850 L750,750 L750,650" />
+    
+    <!-- Circuit nodes (background) -->
+    <circle class="circuit-node" cx="0" cy="0" />
+    <circle class="circuit-node" cx="150" cy="150" />
+    <circle class="circuit-node" cx="300" cy="150" />
+    <circle class="circuit-node" cx="450" cy="300" />
+    <circle class="circuit-node" cx="600" cy="300" />
+    <circle class="circuit-node" cx="750" cy="450" />
+    <circle class="circuit-node" cx="900" cy="450" />
+    <circle class="circuit-node" cx="1000" cy="550" />
+    <circle class="circuit-node" cx="1000" cy="700" />
+    <circle class="circuit-node" cx="850" cy="850" />
+    <circle class="circuit-node" cx="700" cy="850" />
+    <circle class="circuit-node" cx="550" cy="1000" />
+    <circle class="circuit-node" cx="150" cy="250" />
+    <circle class="circuit-node" cx="250" cy="350" />
+    <circle class="circuit-node" cx="550" cy="200" />
+    <circle class="circuit-node" cx="650" cy="200" />
+    <circle class="circuit-node" cx="750" cy="550" />
+    <circle class="circuit-node" cx="650" cy="650" />
+    <circle class="circuit-node" cx="750" cy="750" />
+    
+    <!-- Circuit nodes (active/foreground) -->
+    <circle id="node0" class="circuit-node-active" cx="0" cy="0" style="opacity: 0;" />
+    <circle id="node1" class="circuit-node-active" cx="150" cy="150" style="opacity: 0;" />
+    <circle id="node2" class="circuit-node-active" cx="300" cy="150" style="opacity: 0;" />
+    <circle id="node3" class="circuit-node-active" cx="450" cy="300" style="opacity: 0;" />
+    <circle id="node4" class="circuit-node-active" cx="600" cy="300" style="opacity: 0;" />
+    <circle id="node5" class="circuit-node-active" cx="750" cy="450" style="opacity: 0;" />
+    <circle id="node6" class="circuit-node-active" cx="900" cy="450" style="opacity: 0;" />
+    <circle id="node7" class="circuit-node-active" cx="1000" cy="550" style="opacity: 0;" />
+    <circle id="node8" class="circuit-node-active" cx="1000" cy="700" style="opacity: 0;" />
+    <circle id="node9" class="circuit-node-active" cx="850" cy="850" style="opacity: 0;" />
+    <circle id="node10" class="circuit-node-active" cx="700" cy="850" style="opacity: 0;" />
+    <circle id="node11" class="circuit-node-active" cx="550" cy="1000" style="opacity: 0;" />
+    <circle id="branch1a" class="circuit-node-active" cx="150" cy="250" style="opacity: 0;" />
+    <circle id="branch1b" class="circuit-node-active" cx="250" cy="350" style="opacity: 0;" />
+    <circle id="branch2a" class="circuit-node-active" cx="550" cy="200" style="opacity: 0;" />
+    <circle id="branch2b" class="circuit-node-active" cx="650" cy="200" style="opacity: 0;" />
+    <circle id="branch3a" class="circuit-node-active" cx="750" cy="550" style="opacity: 0;" />
+    <circle id="branch3b" class="circuit-node-active" cx="650" cy="650" style="opacity: 0;" />
+    <circle id="branch4a" class="circuit-node-active" cx="750" cy="750" style="opacity: 0;" />
+  </svg>
+
   <!-- Logos -->
   <div class="center-logo" id="centerLogo">
     <div class="logo">Aqua<span>GVT</span></div>
@@ -170,21 +238,19 @@
   <!-- Nav dots -->
   <div class="nav-dots">
     <div class="nav-dot active" data-index="0"></div>
-    <div class="nav-dot"       data-index="1"></div>
-    <div class="nav-dot"       data-index="2"></div>
+    <div class="nav-dot" data-index="1"></div>
+    <div class="nav-dot" data-index="2"></div>
   </div>
 
-  <!-- Scroll-snap container -->
+  <!-- Content -->
   <div class="main-container">
     <div class="section" id="home"></div>
-
     <div class="section" id="operations">
       <div class="operations-content">
         <h2>Operations</h2>
         <p class="coming-soon">Coming Soon</p>
       </div>
     </div>
-
     <div class="section" id="contact">
       <div class="contact-content">
         <h2>Contact</h2>
@@ -194,31 +260,134 @@
   </div>
 
   <script>
-    const container   = document.querySelector('.main-container');
-    const centerLogo  = document.getElementById('centerLogo');
-    const cornerLogo  = document.getElementById('cornerLogo');
-    const navDots     = document.querySelectorAll('.nav-dot');
-    const vh          = window.innerHeight;
+    const container = document.querySelector('.main-container');
+    const centerLogo = document.getElementById('centerLogo');
+    const cornerLogo = document.getElementById('cornerLogo');
+    const navDots = document.querySelectorAll('.nav-dot');
+    const vh = window.innerHeight;
+    
+    // Circuit elements
+    const mainCircuit = document.getElementById('main-circuit');
+    const branch1 = document.getElementById('branch1');
+    const branch2 = document.getElementById('branch2');
+    const branch3 = document.getElementById('branch3');
+    const branch4 = document.getElementById('branch4');
+    
+    // Node elements
+    const nodes = [];
+    for (let i = 0; i <= 11; i++) {
+      nodes.push(document.getElementById(`node${i}`));
+    }
+    const branchNodes = [
+      document.getElementById('branch1a'),
+      document.getElementById('branch1b'),
+      document.getElementById('branch2a'),
+      document.getElementById('branch2b'),
+      document.getElementById('branch3a'),
+      document.getElementById('branch3b'),
+      document.getElementById('branch4a')
+    ];
+
+    // Prepare strokes for animation
+    window.addEventListener('DOMContentLoaded', () => {
+      // Main circuit path
+      const mainLength = mainCircuit.getTotalLength();
+      mainCircuit.style.strokeDasharray = mainLength;
+      mainCircuit.style.strokeDashoffset = mainLength;
+      
+      // Branch paths
+      [branch1, branch2, branch3, branch4].forEach(branch => {
+        const length = branch.getTotalLength();
+        branch.style.strokeDasharray = length;
+        branch.style.strokeDashoffset = length;
+      });
+    });
 
     function updateUI(idx) {
-      navDots.forEach((d,i)=> d.classList.toggle('active', i===idx));
-      if (idx === 0) {
-        centerLogo.style.opacity = '1';
-        cornerLogo.style.opacity = '0';
-      } else {
-        centerLogo.style.opacity = '0';
-        cornerLogo.style.opacity = '1';
-      }
+      navDots.forEach((d, i) => d.classList.toggle('active', i === idx));
+      centerLogo.style.opacity = idx === 0 ? '1' : '0';
+      cornerLogo.style.opacity = idx === 0 ? '0' : '1';
     }
 
     container.addEventListener('scroll', () => {
       const idx = Math.round(container.scrollTop / vh);
       updateUI(idx);
+
+      // Calculate progress percentage (0 to 1)
+      const total = container.scrollHeight - vh;
+      const progress = Math.min(1, container.scrollTop / total);
+      
+      // Animate main circuit
+      const mainLength = mainCircuit.getTotalLength();
+      mainCircuit.style.strokeDashoffset = mainLength * (1 - progress);
+      
+      // Animate nodes on main path
+      nodes.forEach((node, i) => {
+        // Show node when progress passes its position (approximate)
+        const nodeThreshold = i / (nodes.length - 1) * 0.9;
+        node.style.opacity = (progress >= nodeThreshold) ? '1' : '0';
+      });
+      
+      // Animate branch circuits with delays
+      const branch1Length = branch1.getTotalLength();
+      const branch2Length = branch2.getTotalLength();
+      const branch3Length = branch3.getTotalLength();
+      const branch4Length = branch4.getTotalLength();
+      
+      // Branch 1 activates at ~15% progress
+      if (progress > 0.15) {
+        const branch1Progress = Math.min(1, (progress - 0.15) / 0.1);
+        branch1.style.strokeDashoffset = branch1Length * (1 - branch1Progress);
+        branchNodes[0].style.opacity = branch1Progress > 0.5 ? '1' : '0';
+        branchNodes[1].style.opacity = branch1Progress > 0.9 ? '1' : '0';
+      } else {
+        // Reset branch 1 when scrolling back up
+        branch1.style.strokeDashoffset = branch1Length;
+        branchNodes[0].style.opacity = '0';
+        branchNodes[1].style.opacity = '0';
+      }
+      
+      // Branch 2 activates at ~35% progress
+      if (progress > 0.35) {
+        const branch2Progress = Math.min(1, (progress - 0.35) / 0.1);
+        branch2.style.strokeDashoffset = branch2Length * (1 - branch2Progress);
+        branchNodes[2].style.opacity = branch2Progress > 0.5 ? '1' : '0';
+        branchNodes[3].style.opacity = branch2Progress > 0.9 ? '1' : '0';
+      } else {
+        // Reset branch 2 when scrolling back up
+        branch2.style.strokeDashoffset = branch2Length;
+        branchNodes[2].style.opacity = '0';
+        branchNodes[3].style.opacity = '0';
+      }
+      
+      // Branch 3 activates at ~55% progress
+      if (progress > 0.55) {
+        const branch3Progress = Math.min(1, (progress - 0.55) / 0.1);
+        branch3.style.strokeDashoffset = branch3Length * (1 - branch3Progress);
+        branchNodes[4].style.opacity = branch3Progress > 0.5 ? '1' : '0';
+        branchNodes[5].style.opacity = branch3Progress > 0.9 ? '1' : '0';
+      } else {
+        // Reset branch 3 when scrolling back up
+        branch3.style.strokeDashoffset = branch3Length;
+        branchNodes[4].style.opacity = '0';
+        branchNodes[5].style.opacity = '0';
+      }
+      
+      // Branch 4 activates at ~85% progress
+      if (progress > 0.85) {
+        const branch4Progress = Math.min(1, (progress - 0.85) / 0.1);
+        branch4.style.strokeDashoffset = branch4Length * (1 - branch4Progress);
+        branchNodes[6].style.opacity = branch4Progress > 0.7 ? '1' : '0';
+      } else {
+        // Reset branch 4 when scrolling back up
+        branch4.style.strokeDashoffset = branch4Length;
+        branchNodes[6].style.opacity = '0';
+      }
     });
 
     navDots.forEach(dot =>
       dot.addEventListener('click', () => {
-        const idx = parseInt(dot.dataset.index, 10);
+        const idx = +dot.dataset.index;
         container.scrollTo({ top: idx * vh, behavior: 'smooth' });
       })
     );
@@ -227,7 +396,7 @@
       const t = document.createElement('div');
       t.className = 'cursor-trail';
       t.style.left = e.pageX + 'px';
-      t.style.top  = e.pageY + 'px';
+      t.style.top = e.pageY + 'px';
       document.body.appendChild(t);
       setTimeout(() => t.style.opacity = '0', 400);
       setTimeout(() => document.body.removeChild(t), 800);
